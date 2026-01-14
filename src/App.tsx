@@ -36,6 +36,25 @@ function App() {
     }
   }, [theme]);
 
+  // Debug: Test if ANY clicks work
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      console.log('🌍 GLOBAL CLICK DETECTED:', {
+        target: (e.target as HTMLElement).tagName,
+        className: (e.target as HTMLElement).className,
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    window.addEventListener('click', handleGlobalClick);
+    console.log('✅ Global click listener attached!');
+
+    return () => {
+      window.removeEventListener('click', handleGlobalClick);
+    };
+  }, []);
+
   // Show loading screen while initializing
   if (loading) {
     console.log('⏳ Showing loading screen...');
