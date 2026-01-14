@@ -10,7 +10,11 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 import DocumentEditor from '@/components/editor/DocumentEditor';
 import StickyNoteEditor from '@/components/editor/StickyNoteEditor';
 
+console.log('🚀 App.tsx module loaded!');
+
 function App() {
+  console.log('🏗️ App component is rendering...');
+
   const theme = useCanvasStore((state) => state.theme);
   const editingItemId = useCanvasStore((state) => state.editingItemId);
   const editorType = useCanvasStore((state) => state.editorType);
@@ -18,10 +22,13 @@ function App() {
   const closeEditor = useCanvasStore((state) => state.closeEditor);
   const { loading } = useSupabase(); // Initialize Supabase and load home board
 
+  console.log('📊 App state:', { theme, loading, itemCount: items.length });
+
   const editingItem = items.find((item) => item.id === editingItemId) || null;
 
   // Apply theme to document
   useEffect(() => {
+    console.log('🎨 Theme effect running:', theme);
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -31,6 +38,7 @@ function App() {
 
   // Show loading screen while initializing
   if (loading) {
+    console.log('⏳ Showing loading screen...');
     return (
       <div className={`w-screen h-screen flex items-center justify-center ${theme === 'light' ? 'bg-canvas-light' : 'bg-canvas-dark'}`}>
         <div className="text-center">
@@ -40,6 +48,8 @@ function App() {
       </div>
     );
   }
+
+  console.log('✅ Rendering main app UI...');
 
   return (
     <div className={`w-screen h-screen overflow-hidden ${theme === 'light' ? 'bg-canvas-light' : 'bg-canvas-dark'}`}>
