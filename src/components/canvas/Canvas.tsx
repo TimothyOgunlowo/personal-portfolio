@@ -153,6 +153,10 @@ const Canvas = () => {
         onWheel={handleWheel}
         onDragEnd={handleDragEnd}
         onClick={handleStageClick}
+        onTap={handleStageClick}
+        onMouseDown={(e) => {
+          console.log('🖱️ Mouse down on stage', e.target.getType());
+        }}
       >
         {/* Grid layer */}
         <GridLayer width={dimensions.width * 4} height={dimensions.height * 4} />
