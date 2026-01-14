@@ -39,6 +39,9 @@ const Canvas = () => {
 
   // Handle canvas click to create items
   const handleStageClick = async (e: KonvaEventObject<MouseEvent>) => {
+    // SIMPLE TEST - Just alert on ANY click
+    alert(`Canvas clicked! Tool: ${activeTool}, Board: ${currentBoard?.name || 'none'}`);
+
     console.log('🖱️ Canvas clicked!', {
       activeTool,
       currentBoard: currentBoard?.name,
@@ -58,6 +61,7 @@ const Canvas = () => {
 
     if (!currentBoard) {
       console.error('❌ No current board loaded!');
+      alert('ERROR: No board loaded! Check database setup.');
       return;
     }
 

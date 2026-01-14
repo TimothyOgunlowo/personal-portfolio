@@ -70,8 +70,16 @@ function App() {
 
   console.log('✅ Rendering main app UI...');
 
+  // VISIBLE DEBUG TEST - Show current tool on screen
+  const debugInfo = `Tool: ${activeTool} | Board: ${currentBoard?.name || 'none'} | Items: ${items.length}`;
+
   return (
     <div className={`w-screen h-screen overflow-hidden ${theme === 'light' ? 'bg-canvas-light' : 'bg-canvas-dark'}`}>
+      {/* DEBUG OVERLAY - VISIBLE ON SCREEN */}
+      <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg font-mono text-sm">
+        {debugInfo}
+      </div>
+
       {/* Top bar with breadcrumbs, search, and theme toggle */}
       <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4">
         <Breadcrumbs />
