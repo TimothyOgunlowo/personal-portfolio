@@ -11,9 +11,7 @@ interface StickyNoteProps {
 
 const StickyNote = ({ item }: StickyNoteProps) => {
   const groupRef = useRef<any>(null);
-  const { updateItem, selectedItemIds } = useCanvasStore();
-  // TODO: Implement inline editing functionality
-  // const [isEditing, setIsEditing] = useState(false);
+  const { updateItem, selectedItemIds, openEditor } = useCanvasStore();
 
   const isSelected = selectedItemIds.includes(item.id);
   const color = item.content.color || '#FEF08A'; // Default yellow
@@ -41,8 +39,7 @@ const StickyNote = ({ item }: StickyNoteProps) => {
   };
 
   const handleDblClick = () => {
-    // TODO: Open inline text editor
-    console.log('Edit sticky note:', item.id);
+    openEditor(item.id, 'sticky');
   };
 
   return (

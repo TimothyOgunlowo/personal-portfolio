@@ -7,10 +7,18 @@ import Sidebar from '@/components/toolbar/Sidebar';
 import SearchBar from '@/components/search/SearchBar';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import DocumentEditor from '@/components/editor/DocumentEditor';
+import StickyNoteEditor from '@/components/editor/StickyNoteEditor';
 
 function App() {
   const theme = useCanvasStore((state) => state.theme);
+  const editingItemId = useCanvasStore((state) => state.editingItemId);
+  const editorType = useCanvasStore((state) => state.editorType);
+  const items = useCanvasStore((state) => state.items);
+  const closeEditor = useCanvasStore((state) => state.closeEditor);
   const { loading } = useSupabase(); // Initialize Supabase and load home board
+
+  const editingItem = items.find((item) => item.id === editingItemId) || null;
 
   // Apply theme to document
   useEffect(() => {
@@ -50,6 +58,18 @@ function App() {
 
       {/* Bottom toolbar */}
       <BottomToolbar />
+
+      {/* Editors */}
+      <DocumentEditor
+        item={editingItem}
+        isOpen={editorType === 'document'}
+        onClose={closeEditor}
+      />
+      <StickyNoteEditor
+        item={editingItem}
+        isOpen={editorType === 'sticky'}
+        onClose={closeEditor}
+      />
     </div>
   );
 }

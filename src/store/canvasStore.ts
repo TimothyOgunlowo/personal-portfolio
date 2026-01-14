@@ -25,6 +25,10 @@ interface CanvasStore {
   // Sidebar state
   isSidebarOpen: boolean;
 
+  // Editor state
+  editingItemId: string | null;
+  editorType: 'document' | 'sticky' | null;
+
   // Actions
   setCurrentBoard: (board: Board | null) => void;
   setItems: (items: Item[]) => void;
@@ -49,6 +53,9 @@ interface CanvasStore {
   clearBoardHistory: () => void;
 
   toggleSidebar: () => void;
+
+  openEditor: (itemId: string, type: 'document' | 'sticky') => void;
+  closeEditor: () => void;
 }
 
 export const useCanvasStore = create<CanvasStore>((set) => ({
@@ -69,6 +76,9 @@ export const useCanvasStore = create<CanvasStore>((set) => ({
   boardHistory: [],
 
   isSidebarOpen: true,
+
+  editingItemId: null,
+  editorType: null,
 
   // Actions
   setCurrentBoard: (board) => set({ currentBoard: board }),
@@ -125,4 +135,8 @@ export const useCanvasStore = create<CanvasStore>((set) => ({
   toggleSidebar: () => set((state) => ({
     isSidebarOpen: !state.isSidebarOpen,
   })),
+
+  openEditor: (itemId, type) => set({ editingItemId: itemId, editorType: type }),
+
+  closeEditor: () => set({ editingItemId: null, editorType: null }),
 }));

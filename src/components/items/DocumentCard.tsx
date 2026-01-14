@@ -11,7 +11,7 @@ interface DocumentCardProps {
 
 const DocumentCard = ({ item }: DocumentCardProps) => {
   const groupRef = useRef<any>(null);
-  const { updateItem, selectedItemIds, theme } = useCanvasStore();
+  const { updateItem, selectedItemIds, theme, openEditor } = useCanvasStore();
 
   const isSelected = selectedItemIds.includes(item.id);
   const title = item.content.title || 'Untitled Document';
@@ -37,8 +37,7 @@ const DocumentCard = ({ item }: DocumentCardProps) => {
   };
 
   const handleDblClick = () => {
-    // TODO: Open document editor modal
-    console.log('Open document editor for:', item.id);
+    openEditor(item.id, 'document');
   };
 
   const bgColor = theme === 'light' ? '#FFFFFF' : '#2D2D2D';
