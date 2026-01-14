@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   MousePointer2,
   FolderPlus,
@@ -43,6 +44,7 @@ const BottomToolbar = () => {
       };
 
       if (toolMap[key]) {
+        console.log('🎹 Keyboard shortcut:', key, '→', toolMap[key]);
         setActiveTool(toolMap[key]);
       }
     };

@@ -25,15 +25,29 @@ const Canvas = () => {
 
   // Handle canvas click to create items
   const handleStageClick = async (e: KonvaEventObject<MouseEvent>) => {
+    console.log('🖱️ Canvas clicked!', {
+      activeTool,
+      currentBoard: currentBoard?.name,
+      targetIsStage: e.target === e.target.getStage(),
+    });
+
     // Only create items if we're not in select mode and clicked on the stage (not an item)
-    if (activeTool === 'select' || e.target !== e.target.getStage()) {
+    if (activeTool === 'select') {
+      console.log('⚠️ Select tool active, skipping item creation');
+      return;
+    }
+
+    if (e.target !== e.target.getStage()) {
+      console.log('⚠️ Clicked on an item, not the stage');
       return;
     }
 
     if (!currentBoard) {
-      console.error('No current board');
+      console.error('❌ No current board loaded!');
       return;
     }
+
+    console.log('✅ Creating item...', activeTool);
 
     const stage = e.target.getStage();
     if (!stage) return;
@@ -86,6 +100,8 @@ const Canvas = () => {
     }
 
     try {
+      console.log('📤 Inserting into database...', { board_id: currentBoard.id, type: activeTool, x, y });
+
       // Create item in database
       const { data, error } = await supabase
         .from('items')
@@ -102,7 +118,12 @@ const Canvas = () => {
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ Database error:', error);
+        throw error;
+      }
+
+      console.log('✅ Item created successfully!', data);
 
       // Add to local state
       addItem(data);
@@ -110,7 +131,7 @@ const Canvas = () => {
       // Reset to select tool after creating item
       setActiveTool('select');
     } catch (error) {
-      console.error('Error creating item:', error);
+      console.error('❌ Error creating item:', error);
     }
   };
 
