@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Smooth transitions for theme changes */
+body,
+body * {
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+/* Konva stage should not apply transitions */
+canvas {
+  transition: none !important;
+}
+
+/* Custom scrollbar for sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Backdrop blur for toolbars */
+.backdrop-blur-custom {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Selection outline */
+.selected-item {
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
+}
+
+/* Grid pattern for canvas background */
+.canvas-grid-light {
+  background-color: #FAFAFA;
+  background-image:
+    radial-gradient(circle, #d1d5db 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.canvas-grid-dark {
+  background-color: #1E1E1E;
+  background-image:
+    radial-gradient(circle, #404040 1px, transparent 1px);
+  background-size: 20px 20px;
+}
