@@ -13,6 +13,20 @@ const Canvas = () => {
   const { stageRef, panX, panY, zoomLevel, handleWheel, handleDragEnd } = useCanvas();
   const { items, activeTool, currentBoard, addItem, setActiveTool } = useCanvasStore();
 
+  // Debug: Log when Canvas mounts
+  useEffect(() => {
+    console.log('🎨 Canvas mounted!', {
+      currentBoard: currentBoard?.name,
+      activeTool,
+      itemCount: items.length
+    });
+  }, []);
+
+  // Debug: Log when activeTool changes
+  useEffect(() => {
+    console.log('🔧 Tool changed to:', activeTool);
+  }, [activeTool]);
+
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {

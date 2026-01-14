@@ -65,7 +65,10 @@ const BottomToolbar = () => {
         {tools.map((tool) => (
           <button
             key={tool.type}
-            onClick={() => setActiveTool(tool.type)}
+            onClick={() => {
+              console.log('🎯 Toolbar button clicked:', tool.type);
+              setActiveTool(tool.type);
+            }}
             className={`relative group px-3 py-2 rounded-lg transition-all duration-150 ${
               activeTool === tool.type
                 ? 'bg-indigo-500 text-white'
